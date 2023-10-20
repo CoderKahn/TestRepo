@@ -1,0 +1,33 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+stages:
+  - stage: Compile_and_Test
+    displayName: 'Compile and test code'
+    pool:
+      vmImage: ubuntu-latest
+    jobs:
+      - job: Compile
+        displayName: 'Compile'
+        steps:
+             
+          - script: |
+              sbt clean test
+            displayName: 'Test'
+            condition: succeededOrFailed()
+ 
+
+          - task: CopyFiles@2
+            displayName: 'Copy TestRepo.jar for later use in the pipeline'
+            inputs:
+              Contents: 'TestRepo.jar'
+              SourceFolder: 'target/scala-2.12'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/appserver'
+ 
+          - publish: '$(Build.ArtifactStagingDirectory)/appserver'
+            displayName: 'Publish jars for later use'
+            artifact: jars
+ 
+ 
