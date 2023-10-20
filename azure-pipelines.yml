@@ -28,7 +28,7 @@ stages:
             displayName: 'Assembly'
             condition: succeededOrFailed()
 
-          - publish: '$(Build.SourcesDirectory)/testRepo'
+          - publish: '$(Build.SourcesDirectory)/target/scala-2.13/testRepo'
             displayName: 'Publish jars for later use'
             artifact: jars
  
