@@ -28,7 +28,14 @@ stages:
             displayName: 'Assembly'
             condition: succeededOrFailed()
 
-          - publish: '$(Build.SourcesDirectory)/target/scala-2.13/testRepo'
+          - task: CopyFiles@2
+            displayName: 'Copy appServer.jar for later use in the pipeline'
+            inputs:
+              Contents: 'appServer.jar'
+              SourceFolder: 'target/scala-2.13'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/testRepo'
+
+          - publish: '$(Build.SourcesDirectory)/testRepo'
             displayName: 'Publish jars for later use'
             artifact: jars
  
