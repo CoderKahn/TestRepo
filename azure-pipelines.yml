@@ -18,14 +18,11 @@ stages:
             displayName: 'Test'
             condition: succeededOrFailed()
  
+          - script: |
+              sbt assembly
+            displayName: 'Assembly'
+            condition: succeededOrFailed()
 
-          - task: CopyFiles@2
-            displayName: 'Copy TestRepo.jar for later use in the pipeline'
-            inputs:
-              Contents: 'TestRepo.jar'
-              SourceFolder: 'target/scala-2.12'
-              TargetFolder: '$(Build.ArtifactStagingDirectory)/appserver'
- 
           - publish: '$(Build.ArtifactStagingDirectory)/appserver'
             displayName: 'Publish jars for later use'
             artifact: jars
