@@ -3,6 +3,11 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+resources:
+  - repo: self
+
+name: Kahn's Test Repo
+
 stages:
   - stage: Compile_and_Test
     displayName: 'Compile and test code'
