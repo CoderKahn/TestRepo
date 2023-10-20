@@ -23,7 +23,7 @@ stages:
             displayName: 'Assembly'
             condition: succeededOrFailed()
 
-          - publish: '$(Build.ArtifactStagingDirectory)/TestRepo'
+          - publish: '$(Build.ArtifactStagingDirectory)/testRepo'
             displayName: 'Publish jars for later use'
             artifact: jars
  
